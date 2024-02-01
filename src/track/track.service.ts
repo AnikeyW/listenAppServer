@@ -14,11 +14,13 @@ export class TrackService {
 
   async create(dto: CreateTrackDto, picture, audio): Promise<Track> {
     const audioPath = this.fileService.createFile(FileType.AUDIO, audio);
+    const duration: number = await this.fileService.getAudioDuration(audio.buffer)
     const picturePath = this.fileService.createFile(FileType.IMAGE, picture);
     const track = await this.prisma.track.create({
       data: {
         ...dto,
         listens: 0,
+        duration: duration,
         audio: audioPath,
         picture: picturePath,
       },

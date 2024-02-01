@@ -16,6 +16,7 @@ model Track {
   listens Int
   picture String
   audio String
+  duration Int?
   comments Comment[]
 }
 
